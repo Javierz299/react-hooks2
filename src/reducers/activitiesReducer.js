@@ -15,7 +15,9 @@ const activitiesReducer = (state = initialState, action) => {
                 id: uuid(),
                 name: action.payload.name,
                 duration: action.payload.duration,
-            }]
+            }];
+        case "DELETE_ACTIVITY":
+            return [...state].filter(activity => activity.id !== action.payload.id);
         default:
             return state;
     }    
