@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { useForm } from './useForm';
 
 /*function someExpensiveIntialState(){
   /*expensive code
@@ -29,6 +30,10 @@ const App = () => {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
 
+  ///////useForm instead of useState/////////
+    const [values, handleChange] = useForm({email: "", password: ""})
+      //console.log('handlechange',handleChange)
+
 
   return (
     <div className="App">
@@ -52,8 +57,8 @@ const App = () => {
 
       {/* <button onClick={() => setCount(count + 1)} >+</button> */}
 
-      <div>
-        <h1>useState() with inputs</h1>
+      {/* <div>
+        <h1>useState() w/o useForm</h1>
           <input name="email" value={email} 
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email.."
@@ -61,6 +66,19 @@ const App = () => {
           <input type="password" name="password" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="password..."
+          />
+      </div> */}
+
+      <div>
+        <h1>useForm() w/o useState</h1>
+          <input name="email" value={values.email} 
+            onChange={handleChange}
+            placeholder="email.."
+          />
+          <input type="password" name="password" 
+            value={values.password}
+            onChange={handleChange}
             placeholder="password..."
           />
       </div>
