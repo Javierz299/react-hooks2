@@ -8,14 +8,14 @@ export const useFetch = (url) => {
        setState({data: null, loading: true})
        async function fetchData(){
            const response = await fetch(url)
-                                    .then(res => res.text())
-                                    .then(response => {
-                                        setState({data: response, loading: false})
-                                    })
+                .then(res => res.text())
+                .then(response => {
+                setState({data: response, loading: false})
+            });
                 return response;
-       }
+       };
         fetchData();
-   },[url]);
+   },[url,setState]);//re renders everytime url changes; are called dependecies
 
    return state;
-}
+};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import Hello from './Hello'
 import './App.css';
 
@@ -10,25 +10,10 @@ const App = () => {
     const [values, handleChange] = useForm({email: "", password: "", firstName: ""});
     const [showHello, setHello] = useState(true)
 
-    // useEffect(() => {
-    //     effect; componentDidMount
-    //     return () => {
-    //         cleanup; componentWillUnmount
-    //     }
-    // }, [input]); triggers componentDidmount on state change
+    const inputRef = useRef();
 
-    // useEffect(() => {
-    //     console.log("componentDidMount") //use case add eventListener
-    //     return () => {
-    //     console.log("cleanup/Unmount") //use case remove eventListener
-
-    //     }
-   // }, []); //triggers componentDidmount on state change and cleanup/unmount
-        //shallow comparison of values
-        //[values.firstname,values.email] => [values] all values
 
    const {data,loading} = useFetch('http://numbersapi.com/random/trivia')
-
   return (
 
       <div>
@@ -37,11 +22,10 @@ const App = () => {
 
           <div>
               {loading ? "loading..." : data}
-              <button onClick={randomClick} >Random</button>
           </div>
 
         <h1>useForm() w/o useState</h1>
-          <input name="firstName" value={values.firstName} 
+          <input ref={inputRef} name="firstName" value={values.firstName} 
             onChange={handleChange}
             placeholder="first name..."
           />
@@ -56,6 +40,9 @@ const App = () => {
             onChange={handleChange}
             placeholder="password..."
           />
+
+<button onClick={() => inputRef.current.focus()} >FocusRef</button>
+
       </div>
   );
 }
