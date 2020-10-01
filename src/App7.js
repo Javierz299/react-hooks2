@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react'
 
                 //{todos: []} =>  state = { todos: []}
 const reducer = (state, action) =>{
-
+    console.log('state',{...state})
     switch(action.type){
         case "ADD":
             return {
@@ -11,6 +11,7 @@ const reducer = (state, action) =>{
             };
         case "TOGGLE":
             return {
+                ...state,
                 todos: state.todos.map((todo,i) => (
                     i === action.payload ? {...todo, completed: !todo.completed} : todo
                 ))
