@@ -10,7 +10,13 @@ const App = () => {
     const [values, handleChange] = useForm({email: "", password: "", firstName: ""});
     const [showHello, setHello] = useState(true)
 
-    const inputRef = useRef();
+    const inputRef = useRef();// can access useRef values with .current
+                              // isCurrent = useRef(true) => isCurrent.current
+                              //if(isCurrent.current)
+                              // isCurrent.current = false
+   
+// const hello = useRef(() => log("hello"))
+// <button onClick={() => inputRef.current.focus(); hello.current()} >
 
 
    const {data,loading} = useFetch('http://numbersapi.com/random/trivia')

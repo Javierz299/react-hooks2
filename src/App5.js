@@ -1,55 +1,39 @@
-import React, { useEffect, useState,useRef } from 'react';
-import Hello from './Hello'
-import './App.css';
+import React, { useState, useCallback } from 'react'
+import Hello  from './Hello'
+import Square from './Square'
 
-import { useForm } from './useForm';
-import { useFetch } from './useFetch'
+const App5 = () => {
+    //////////////useCallback hook////////////////
+    const [count, setCount] = useState(0)
 
-const App = () => {
-  ///////useForm instead of useState/////////
-    const [values, handleChange] = useForm({email: "", password: "", firstName: ""});
-    const [showHello, setHello] = useState(true)
+    const favoriteNums = [2,4,5,6,7]
 
-    const inputRef = useRef(); // can access useRef values with .current
-                               // isCurrent = useRef(true) => isCurrent.current
-                               //if(isCurrent.current)
-                               // isCurrent.current = false
-                              
-    // const hello = useRef(() => log("hello"))
-    // <button onClick={() => inputRef.current.focus(); hello.current()} >
+    const increment = useCallback(() => {
+        setCount(prev => prev + 1)
+    },[setCount])
 
-   const {data,loading} = useFetch('http://numbersapi.com/random/trivia')
-  return (
+    const incrementFavs = useCallback((n) => {
+        setCount(prev => prev + n)
+    },[setCount])
 
-      <div>
-          {showHello && <Hello />}
-          <button onClick={() => setHello(!showHello)} >toggleHello</button>
+    return (
+        <div>
+            <Hello increment={increment} />
+            <div>
+                app component
+                {count}
+            </div>
+            <div>
+                {favoriteNums.map(n => {
+                    return (
+                        <Square key={n} incrementFavs={incrementFavs} n={n}/>
+                    )
+                })
 
-          <div>
-              {loading ? "loading..." : data}
-          </div>
-
-        <h1>useForm() w/o useState</h1>
-          <input ref={inputRef} name="firstName" value={values.firstName} 
-            onChange={handleChange}
-            placeholder="first name..."
-          />
-
-          <input name="email" value={values.email} 
-            onChange={handleChange}
-            placeholder="email.."
-          />
-          
-          <input type="password" name="password" 
-            value={values.password}
-            onChange={handleChange}
-            placeholder="password..."
-          />
-
-<button onClick={() => inputRef.current.focus()} >FocusRef</button>
-
-      </div>
-  );
+                }
+            </div>
+        </div>
+    )
 }
 
-export default App;
+export default App5
