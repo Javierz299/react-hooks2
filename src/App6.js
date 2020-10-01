@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { useFetch } from './useFetch'
 
 //////////this works with useMemo
+//////////pure function
 // const longestWord = (arr) => {
 //     let longestWord = ''
 
